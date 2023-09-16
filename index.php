@@ -28,7 +28,7 @@ if (!isset($_REQUEST['gestion'])) {
 
 }
 
-//Appel du routeur (accueil.php, client.php, ...)
+//Appel du routeur (accueil.php, lieu.php, ...)
 
 /*
 require_once 'mod_'.$_REQUEST['gestion'].'/'.$_REQUEST['gestion'].'.php';

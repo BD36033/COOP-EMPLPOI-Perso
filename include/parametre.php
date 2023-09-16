@@ -3,7 +3,7 @@
  * Définition de constantes accès à la base de données
  */
 
-define('SERVEUR', '127.0.0.1:8889');
-define('BASE', 'gourmandise');
+define('SERVEUR', 'localhost');
+define('BASE', 'coopemploi');
 define('NOM', 'root');
-define('PASS', 'root');
+define('PASS', '');

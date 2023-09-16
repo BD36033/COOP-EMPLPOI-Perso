@@ -16,7 +16,10 @@ class autoloader{
           'module_accueil/controleur/',
           'module_accueil/modele/',
           'module_accueil/vue/',
-
+          'mod_lieu/',
+          'mod_lieu/controleur/',
+          'mod_lieu/modele/',
+          'mod_lieu/vue/',
         ];
 
         foreach ($repertoires as $repertoire) {
