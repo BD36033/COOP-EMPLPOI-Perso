@@ -36,48 +36,172 @@
                         <div class="col-lg-6">
                             <img class="img-fluid" src="" alt="" />
                         </div>
-                        <div class="col-lg-6 ps-lg-4 my-5 text-center text-lg-start">
-                            <h3 class="text-primary">Test</h3>
-                            <p class="lead">thomas.</p>
-                            <a class="btn btn-falcon-primary" href="#">Première page</a>
+
+                        <!------------Formulaire-------------------------------------------------------------------->
+                        <div {if LieuTable::getMessageErreur() neq ''} class="alert alert-danger" role="alert"{/if}>
+                            {LieuTable::getMessageErreur()}
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"><strong></strong></div>
+
+                            <form action="index.php" method="POST">
+                                <!------------Formulaire consultation-->
+
+
+                                <input type="hidden" name="gestion" value="lieu">
+
+                                <input type="hidden" name="action" value="{$action}">
+
+                                <div class="card-body card-block">
+
+                                    {if $action neq 'ajouter'}
+
+
+                                        <div class="form-group">
+                                            <label for="text" class=" form-control">
+                                                Identifiant
+                                            </label>
+                                            <input type="text" name="id" class="form-control"
+                                                   value="{$unLieu->getId()}"
+                                                   readonly>
+                                        </div>
+
+                                    {/if}
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Nom <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="nom" class="form-control" value="{$unLieu->getNom()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Service, N° bureau ou d'étage <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="adresse1" class="form-control" value="{$unLieu->getAdresse1()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                    <label for="text" class=" form-control">
+                                        Résidence, Immeuble, Bâtiment, ZI <sup>*</sup>:
+                                    </label>
+                                    <input type="text" name="adresse2" class="form-control" value="{$unLieu->getAdresse2()}"
+
+                                            {$readonly}>
+                                </div>
+
+
+
+
+
+                                <div class="form-group">
+                                <label for="text" class=" form-control">
+                                    Numéro de voie, type, nom de la voie <sup>*</sup>:
+                                </label>
+                                <input type="text" name="adresse3" class="form-control" value="{$unLieu->getAdresse3()}"
+
+                                        {$readonly}>
+                                </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Mention de la distribution, lieu-dit <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="adresse4" class="form-control" value="{$unLieu->getAdresse4()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Code postal <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="codepostal" class="form-control" value="{$unLieu->getCodePostal()}"
+
+                                                {$readonly}>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Localité de destination cédex <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="ville" class="form-control" value="{$unLieu->getVille()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Contact <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="contact" class="form-control" value="{$unLieu->getContact()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Telephone <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="telephone" class="form-control" value="{$unLieu->getTelephone()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="text" class=" form-control">
+                                            Capacite accueil <sup>*</sup>:
+                                        </label>
+                                        <input type="text" name="capaciteaccueil" class="form-control" value="{$unLieu->getCapaciteAccueil()}"
+
+                                                {$readonly}>
+                                    </div>
+
+
+                                    <div class="card-body card-block">
+
+                                        <div class="col-md-6">
+                                            {if $action !='consulter'}
+                                                <input type="submit"
+                                                       class="btn btn-submit"
+                                                        name="btn-valider"
+                                                       value="{$action|capitalize}">
+
+                                            {/if}
+
+                                        </div>
+                                        <br>
+                                    </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <footer class="footer">
-                <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">2023 &copy; Coop'Emploi <span class="d-none d-sm-inline-block"> </span> </p>
-                    </div>
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">v0.0.1</p>
-                    </div>
-                </div>
-            </footer>
         </div>
-    </div>
-</main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
+                     {include file='public/footer.tpl'}
+    </main>
+ </body>

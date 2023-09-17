@@ -46,7 +46,7 @@
                                 <form class="pos-ajout" method="post" action="index.php">
                                     <input type="hidden" name="gestion" value="lieu">
                                     <input type="hidden" name="action" value="form_ajouter">
-                                    <label>Ajouter un produit :
+                                    <label>Ajouter un lieu :
                                         <input type="image"
                                                name="btn_ajouter"
                                                src="images/icones/a16.png">
@@ -68,8 +68,6 @@
                                 <tr>
                                     <th>Identifiant</th>
                                     <th>Nom</th>
-                                    <th>Adresse</th>
-                                    <th>Code postal</th>
                                     <th>Ville</th>
                                     <th>Contact</th>
                                     <th>Telephone</th>
@@ -85,8 +83,8 @@
                                     <tr>
                                         <td>{$unLieu->getId()}</td>
                                         <td>{$unLieu->getNom()}</td>
-                                        <td>{$unLieu->getAdresse1()}</td>
-                                        <td>{$unLieu->getCodePostal()}</td>
+                                        <td>{$unLieu->getVille()}</td>
+                                        <td>{$unLieu->getContact()}</td>
                                         <td>{$unLieu->getTelephone()}</td>
                                         <td>
                                             <form action="index.php" method="post">
@@ -120,7 +118,7 @@
                             </table>
                         </div>
                     </div>
-
+                </div>
 
 
 
@@ -130,24 +128,7 @@
 
                     </div>
                 </div>
-            </div>
-            <footer class="footer">
-                <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">2023 &copy; Coop'Emploi <span class="d-none d-sm-inline-block"> </span> </p>
-                    </div>
-                    <div class="col-12 col-sm-auto text-center">
-                        <p class="mb-0 text-600">v0.0.1</p>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
+
+            {include file='public/footer.tpl'}
 </main>
-
-
-
-
-
-
 </body>

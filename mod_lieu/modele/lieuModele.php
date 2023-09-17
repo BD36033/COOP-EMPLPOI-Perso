@@ -31,7 +31,8 @@ Class LieuModele extends Modele{
     }
 
     public function addLieu(LieuTable $valeurs){
-        $sql = "INSERT INTO lieu (id, nom, adresse1, adresse2, adresse3, adresse4, code_postal, ville, contact, telephone,capaciteaccueil, datecreation, datemodification) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO lieu ( nom, adresse1, adresse2, adresse3, adresse4, codepostal, ville, contact, 
+                  telephone,capaciteaccueil) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         $idRequete = $this->executeRequete($sql,[
             $valeurs->getNom(),
@@ -44,8 +45,6 @@ Class LieuModele extends Modele{
             $valeurs->getContact(),
             $valeurs->getTelephone(),
             $valeurs->getCapaciteAccueil(),
-            $valeurs->getDateCreation(),
-            $valeurs->getDateModification(),
         ]);
 
         if($idRequete){
@@ -65,7 +64,7 @@ Class LieuModele extends Modele{
     }
 
     public function updateLieu(LieuTable $valeurs){
-        $sql = "UPDATE lieu SET nom = ?, adresse1 = ?,adresse2 = ?,adresse3 = ?,adresse4 = ?,code_postal = ?,ville = ?,contact = ?,telephone = ?,capaciteaccueil = ?, datecreation = ?, datemodification = ? WHERE id= ?";
+        $sql = "UPDATE lieu SET nom = ?, adresse1 = ?,adresse2 = ?,adresse3 = ?,adresse4 = ?,codepostal = ?,ville = ?,contact = ?,telephone = ?,capaciteaccueil = ?, datecreation = ?, datemodification = ? WHERE id= ?";
         $idRequete = $this->executeRequete($sql, [
             $valeurs->getId(),
             $valeurs->getNom(),

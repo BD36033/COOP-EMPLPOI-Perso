@@ -54,7 +54,6 @@ Class LieuControleur{
     public function supprimer(){
 
         $controleLieu = new LieuTable($this->parametre);
-
         if ($controleLieu->getAutorisationBD() == false){
             //Retour à la fiche
             $this->oVue->genererAffichageFiche($controleLieu);

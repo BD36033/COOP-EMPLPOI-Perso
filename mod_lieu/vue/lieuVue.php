@@ -34,7 +34,7 @@ Class LieuVue{
             case 'form_consulter':
                 $this->tpl->assign('action','consulter');
 
-                $this->tpl->assign('readonly','disable');
+                $this->tpl->assign('readonly','disabled');
 
                 $this->tpl->assign('titrePage','Fiche lieu: Consultation');
 
@@ -56,7 +56,7 @@ Class LieuVue{
             case 'supprimer':
             $this->tpl->assign('action','supprimer');
 
-            $this->tpl->assign('readonly','');
+            $this->tpl->assign('readonly','disabled');
 
             $this->tpl->assign('titrePage','Fiche lieu: Suppression');
 
