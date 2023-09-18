@@ -64,9 +64,8 @@ Class LieuModele extends Modele{
     }
 
     public function updateLieu(LieuTable $valeurs){
-        $sql = "UPDATE lieu SET nom = ?, adresse1 = ?,adresse2 = ?,adresse3 = ?,adresse4 = ?,codepostal = ?,ville = ?,contact = ?,telephone = ?,capaciteaccueil = ?, datecreation = ?, datemodification = ? WHERE id= ?";
+        $sql = "UPDATE lieu SET nom = ?, adresse1 = ?,adresse2 = ?,adresse3 = ?,adresse4 = ?,codepostal = ?,ville = ?,contact = ?,telephone = ?,capaciteaccueil = ? WHERE id= ?";
         $idRequete = $this->executeRequete($sql, [
-            $valeurs->getId(),
             $valeurs->getNom(),
             $valeurs->getAdresse1(),
             $valeurs->getAdresse2(),
@@ -77,11 +76,10 @@ Class LieuModele extends Modele{
             $valeurs->getContact(),
             $valeurs->getTelephone(),
             $valeurs->getCapaciteAccueil(),
-            $valeurs->getDateCreation(),
-            $valeurs->getDateModification(),
+            $valeurs->getId()
         ]);
         if($idRequete){
-            LieuTable::setMessageSuccess("Modification du lieu produit correctement effectué");
+            LieuTable::setMessageSuccess("Modification du lieu correctement effectué");
         }
     }
 

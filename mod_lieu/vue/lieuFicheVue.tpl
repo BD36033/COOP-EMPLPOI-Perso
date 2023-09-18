@@ -184,14 +184,15 @@
                                     <div class="card-body card-block">
 
                                         <div class="col-md-6">
+
                                             {if $action !='consulter'}
                                                 <input type="submit"
-                                                       class="btn btn-submit"
+                                                       class="btn btn-falcon-primary"
                                                         name="btn-valider"
                                                        value="{$action|capitalize}">
 
                                             {/if}
-
+                                            <a class="btn btn-falcon-primary" href="index.php?gestion=lieu">Retour</a>
                                         </div>
                                         <br>
                                     </div>
