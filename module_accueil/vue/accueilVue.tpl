@@ -35,9 +35,9 @@
                                     <img class="img-fluid" src="" alt="" />
                                 </div>
                                 <div class="col-lg-6 ps-lg-4 my-5 text-center text-lg-start">
-                                    <h3 class="text-primary">Accueil</h3>
+                                    <h3 class="font-sans-serif text-warning">Accueil</h3>
                                     <p class="lead">accueil</p>
-                                    <a class="btn btn-falcon-primary" href="#">Première page</a>
+                                    <a class="btn btn-falcon-warning" href="#">Première page</a>
                                 </div>
                             </div>
                         </div>

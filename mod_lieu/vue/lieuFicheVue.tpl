@@ -187,12 +187,12 @@
 
                                             {if $action !='consulter'}
                                                 <input type="submit"
-                                                       class="btn btn-falcon-primary"
+                                                       class="btn btn-falcon-warning"
                                                         name="btn-valider"
                                                        value="{$action|capitalize}">
 
                                             {/if}
-                                            <a class="btn btn-falcon-primary" href="index.php?gestion=lieu">Retour</a>
+                                            <a class="btn btn-falcon-warning" href="index.php?gestion=lieu">Retour</a>
                                         </div>
                                         <br>
                                     </div>
