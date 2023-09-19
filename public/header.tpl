@@ -26,7 +26,7 @@
     </button>
     <a class="navbar-brand me-1 me-sm-3" href="index.php">
         <div class="d-flex align-items-center">
-            <img class="me-2" src="" alt="" width="40" />
+            <img class="me-2" src="images/coopemploi.png" alt="" width="40" />
             <span class="font-sans-serif text-warning" >Coop'Emploi</span>
         </div>
     </a>
