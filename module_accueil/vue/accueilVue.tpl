@@ -32,12 +32,14 @@
                         <div class="card-body overflow-hidden p-lg-6">
                             <div class="row align-items-center">
                                 <div class="col-lg-6">
-                                    <img class="img-fluid" src="" alt="" />
                                 </div>
-                                <div class="col-lg-6 ps-lg-4 my-5 text-center text-lg-start">
+
+                                <div class="col-lg-6 ps-lg-4 my-5  text-lg-start">
+
                                     <h3 class="font-sans-serif text-warning">Accueil</h3>
-                                    <p class="lead">accueil</p>
-                                    <a class="btn btn-falcon-warning" href="#">Première page</a>
+                                    <p>Outil de gestion Coop'emploi</p>
+
+
                                 </div>
                             </div>
                         </div>
