@@ -5,7 +5,7 @@ import { styles } from "../styles/AppStyles";
 
 export default function Navbar({ title, navigation, route }) {
   return (
-    <View>
+    <View style={styles.containerNavBottom}>
       {route.name !== "Home" && (
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="home" size={24} color="black" />

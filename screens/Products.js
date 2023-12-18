@@ -1,143 +1,93 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, ButtonGroup } from "react-native-elements";
-import { FlatList, Pressable, Text, View, Image, RefreshControl } from "react-native";
-import { styles, stylesList } from "../styles/AppStyles";
+import {
+  FlatList,
+  Pressable,
+  Text,
+  View,
+  Image,
+  StyleSheet,
+} from "react-native";
+import { styles } from "../styles/AppStyles";
 
 export default function Products({ navigation }) {
-    const [sortBy, setSortBy] = useState("name");
-    const [filterBy, setFilterBy] = useState("");
-    const [data, setData] = useState([]);
-    const [sortPressed, setSortPressed] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
+  const [sortBy, setSortBy] = useState("name"); // État du tri
+  const [filterBy, setFilterBy] = useState(""); // État du filtre
+  const DATA = [
+    {
+      id: 1,
+      name: "Barre de chocolat au lait",
+      description: "Une délicieuse barre de chocolat au lait crémeux.",
+      photo:
+        "https://cdn.pixabay.com/photo/2013/09/18/18/24/chocolate-183543_1280.jpg",
+    },
+    {
+      id: 2,
+      name: "Truffes au chocolat noir",
+      description: "Des truffes fondantes au chocolat noir de haute qualité.",
+      photo:
+        "https://cdn.pixabay.com/photo/2022/01/15/19/29/chocolate-6940529_1280.jpg",
+    },
+    {
+      id: 3,
+      name: "Chocolat chaud suisse",
+      description: "Le chocolat chaud suisse authentique, épais et délicieux.",
+      photo:
+        "https://cdn.pixabay.com/photo/2016/11/29/13/54/breakfast-1870009_1280.jpg",
+    },
+    {
+      id: 4,
+      name: "Crêpes au Nutella",
+      description: "De délicieuses crêpes garnies de Nutella au chocolat.",
+      photo:
+        "https://cdn.pixabay.com/photo/2021/12/08/19/41/dessert-6856584_1280.jpg",
+    },
+  ];
 
-    useEffect(() => {
-        fetchData();
-    }, []); // Chargement initial
+  const handleProductPress = (item) => {
+    navigation.navigate("Fiche produit", { item: item });
+  };
+  const handleSortBy = (value) => {
+    setSortBy(value);
+  };
 
-    useEffect(() => {
-        if (sortPressed && sortBy === "name") {
-            const sortedData = [...data].sort((a, b) => {
-                return a.designation.localeCompare(b.designation);
-            });
+  const handleFilterBy = (value) => {
+    setFilterBy(value);
+  };
 
-            setData(sortedData);
-            setSortPressed(false);
-        }
-    }, [sortPressed, sortBy, data]);
+  const buttons = ["Nom", "Catégorie"];
 
-    const fetchData = () => {
-        setRefreshing(true);
+  const buttonStyles = {
+    containerStyle: { height: 40 },
+    buttonStyle: { backgroundColor: "sienna" }, // Couleur de fond
+    textStyle: { color: "white" }, // Couleur du texte
+  };
+  const renderProducts = ({ item }) => (
+    <Pressable onPress={() => handleProductPress(item)}>
+      <View style={styles.item}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Image style={styles.imageProduits} source={{ uri: item.photo }} />
+      </View>
+    </Pressable>
+  );
 
-        fetch(
-            "http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/products",
-        )
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP! Statut : ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((newData) => {
-                setData(newData);
-            })
-            .catch((error) => {
-                console.error(
-                    "Erreur lors de la récupération des données :",
-                    error.message,
-                );
-            })
-            .finally(() => {
-                setRefreshing(false);
-            });
-    };
-
-    const fetchProductDetails = async (productId) => {
-        try {
-            const response = await fetch(
-                `http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/productDetails?id=${productId}`
-            );
-
-            if (!response.ok) {
-                throw new Error(`Erreur HTTP! Statut : ${response.status}`);
-            }
-
-            const productDetails = await response.json();
-            return productDetails;
-        } catch (error) {
-            console.error("Erreur lors de la récupération des détails du produit :", error.message);
-        }
-    };
-
-    const handleProductPress = (item) => {
-        navigation.navigate("Fiche produit", {
-            productDetails: {
-                designation: item.designation,
-                descriptif: item.descriptif,
-                poids_piece: item.poids_piece,
-                quantite: item.quantite,
-                photo:
-                    item.image ||
-                    "https://picsum.photos/200/300", // Image de test
-            },
-        });
-    };
-
-    const handleSortBy = (value) => {
-        setSortBy(value);
-        if (value === "name") {
-            setSortPressed(true);
-        }
-    };
-
-    const handleFilterBy = (value) => {
-        setFilterBy(value);
-    };
-
-    const onRefresh = () => {
-        fetchData();
-    };
-
-    const buttons = ["Nom", "Catégorie"];
-
-    const buttonStyles = {
-        containerStyle: { height: 40 },
-        buttonStyle: { backgroundColor: "sienna" },
-        textStyle: { color: "white" },
-    };
-
-    const renderProducts = ({ item }) => (
-        <Pressable onPress={() => handleProductPress(item)}>
-            <View style={stylesList.item}>
-                <Text style={stylesList.title}>{item.designation}</Text>
-                <Image
-                    style={stylesList.imageProduits}
-                    source={{
-                        uri: item.image || "https://picsum.photos/200/300",
-                    }}
-                />
-            </View>
-        </Pressable>
-    );
-
-    return (
-        <View style={styles.containerProduits}>
-            <ButtonGroup
-                onPress={(selectedIndex) => {
-                    if (selectedIndex === 0) handleSortBy("name");
-                    else if (selectedIndex === 2) handleFilterBy("chocolat");
-                }}
-                buttons={buttons}
-                {...buttonStyles}
-            />
-            <FlatList
-                data={data}
-                renderItem={renderProducts}
-                keyExtractor={(item, index) => index.toString()}
-                numColumns={2}
-                refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-                }
-            />
-        </View>
-    );
+  return (
+    <View style={styles.containerProduits}>
+      {/* Utiliser ButtonGroup pour des boutons stylés */}
+      <ButtonGroup
+        onPress={(selectedIndex) => {
+          if (selectedIndex === 0) handleSortBy("name");
+          else if (selectedIndex === 2) handleFilterBy("chocolat");
+        }}
+        buttons={buttons}
+        {...buttonStyles}
+      />
+      <FlatList
+        data={DATA}
+        renderItem={renderProducts}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+      />
+    </View>
+  );
 }
