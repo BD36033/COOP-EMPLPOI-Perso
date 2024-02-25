@@ -1,33 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "react-native-elements";
-import { FlatList, Pressable, Text, View, Image } from "react-native";
+import { FlatList, Pressable, Text, View, Image, RefreshControl } from "react-native";
 import { styles, stylesList } from "../styles/AppStyles";
 
 export default function Products({ navigation }) {
-  const [sortBy, setSortBy] = useState("name"); // État du tri
-  const [filterBy, setFilterBy] = useState(""); // État du filtre
-  const [data, setData] = useState([]);
+    const [sortBy, setSortBy] = useState("name");
+    const [filterBy, setFilterBy] = useState("");
+    const [data, setData] = useState([]);
+    const [sortPressed, setSortPressed] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    fetch(
-      "http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/products",
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP! Statut : ${response.status}`);
+    useEffect(() => {
+        fetchData();
+    }, []); // Chargement initial
+
+    useEffect(() => {
+        if (sortPressed && sortBy === "name") {
+            const sortedData = [...data].sort((a, b) => {
+                return a.designation.localeCompare(b.designation);
+            });
+
+            setData(sortedData);
+            setSortPressed(false);
         }
-        return response.json();
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des données :",
-          error.message,
-        );
-      });
-  }, []);
+    }, [sortPressed, sortBy, data]);
+
+    const fetchData = () => {
+        setRefreshing(true);
+
+        fetch(
+            "http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/products",
+        )
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP! Statut : ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((newData) => {
+                setData(newData);
+            })
+            .catch((error) => {
+                console.error(
+                    "Erreur lors de la récupération des données :",
+                    error.message,
+                );
+            })
+            .finally(() => {
+                setRefreshing(false);
+            });
+    };
 
     const fetchProductDetails = async (productId) => {
         try {
@@ -46,70 +68,76 @@ export default function Products({ navigation }) {
         }
     };
 
-  const handleProductPress = (item) => {
-    navigation.navigate("Fiche produit", {
-      productDetails: {
-        designation: item.designation,
-        descriptif: item.descriptif,
-        poids_piece: item.poids_piece,
-        quantite: item.quantite,
-        photo:
-          item.image ||
-          "https://picsum.photos/200/300", // Image de test
-      },
-    });
-  };
+    const handleProductPress = (item) => {
+        navigation.navigate("Fiche produit", {
+            productDetails: {
+                designation: item.designation,
+                descriptif: item.descriptif,
+                poids_piece: item.poids_piece,
+                quantite: item.quantite,
+                photo:
+                    item.image ||
+                    "https://picsum.photos/200/300", // Image de test
+            },
+        });
+    };
 
-  const handleSortBy = (value) => {
-    setSortBy(value);
-  };
+    const handleSortBy = (value) => {
+        setSortBy(value);
+        if (value === "name") {
+            setSortPressed(true);
+        }
+    };
 
-  const handleFilterBy = (value) => {
-    setFilterBy(value);
-  };
+    const handleFilterBy = (value) => {
+        setFilterBy(value);
+    };
 
-  const buttons = ["Nom", "Catégorie"];
+    const onRefresh = () => {
+        fetchData();
+    };
 
-  const buttonStyles = {
-    containerStyle: { height: 40 },
-    buttonStyle: { backgroundColor: "sienna" }, // Couleur de fond
-    textStyle: { color: "white" }, // Couleur du texte
-  };
+    const buttons = ["Nom", "Catégorie"];
 
-  const renderProducts = ({ item }) => (
-    <Pressable onPress={() => handleProductPress(item)}>
-      <View style={stylesList.item}>
-        <Text style={stylesList.title}>{item.designation}</Text>
-        <Image
-          style={stylesList.imageProduits}
-          source={{
-            uri:
-              item.image ||
-                "https://picsum.photos/200/300",
-              // require('../assets/promo.png'),
+    const buttonStyles = {
+        containerStyle: { height: 40 },
+        buttonStyle: { backgroundColor: "sienna" },
+        textStyle: { color: "white" },
+    };
 
-          }}
-        />
-      </View>
-    </Pressable>
-  );
+    const renderProducts = ({ item }) => (
+        <Pressable onPress={() => handleProductPress(item)}>
+            <View style={stylesList.item}>
+                <Text style={stylesList.title}>{item.designation}</Text>
+                <Image
+                    style={stylesList.imageProduits}
+                    source={{
+                        uri: item.image || "https://picsum.photos/200/300",
+                    }}
+                />
+            </View>
+        </Pressable>
+    );
 
-  return (
-    <View style={styles.containerProduits}>
-      <ButtonGroup
-        onPress={(selectedIndex) => {
-          if (selectedIndex === 0) handleSortBy("name");
-          else if (selectedIndex === 2) handleFilterBy("chocolat");
-        }}
-        buttons={buttons}
-        {...buttonStyles}
-      />
-      <FlatList
-        data={data}
-        renderItem={renderProducts}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-      />
-    </View>
-  );
+    return (
+        <View style={styles.containerProduits}>
+            <ButtonGroup
+                onPress={(selectedIndex) => {
+                    if (selectedIndex === 0) handleSortBy("name");
+                    else if (selectedIndex === 2) handleFilterBy("chocolat");
+                }}
+                buttons={buttons}
+                {...buttonStyles}
+            />
+            <FlatList
+                data={data}
+                renderItem={renderProducts}
+                keyExtractor={(item, index) => index.toString()}
+                numColumns={2}
+                refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                }
+            />
+        </View>
+    );
 }
