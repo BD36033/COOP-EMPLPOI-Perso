@@ -46,6 +46,34 @@ export const stylesAccueil = StyleSheet.create({
     description: {
         fontSize: 16,
     },
+    presentationGourmandise: {
+        fontStyle: "italic",
+        fontSize: 17,
+        textAlign: "center",
+        color: "sienna",
+    },
+    employeeContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    employeeCard: {
+        backgroundColor: '#f9f9f9',
+        borderRadius: 8,
+        padding: 10,
+        width: '30%', // Divisez l'espace en trois pour afficher trois images côte à côte
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    employeePhoto: {
+        width: '100%', // Assurez-vous que la photo de l'employé remplit la carte
+        aspectRatio: 1, // Pour garder un aspect carré, ou ajustez selon vos besoins
+        borderRadius: 40,
+    },
+    employeeName: {
+        marginTop: 5, // Ajustez la marge supérieure selon vos préférences
+        textAlign: 'center', // Pour centrer le texte sous l'image
+    },
 });
 export const styles = StyleSheet.create({
     container: {
@@ -121,14 +149,6 @@ export const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 20,
     },
-
-    presentationGourmandise: {
-        fontStyle: "italic",
-        fontSize: 17,
-        textAlign: "center",
-        color: "sienna",
-    },
-
     containerNav: {
         flexDirection: "row",
         justifyContent: "space-between",

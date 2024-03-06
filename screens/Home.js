@@ -76,23 +76,53 @@ export default function Home({navigation, route}) {
             photo:
                 "https://ibb.co/0ms9kWc",
         },
-    ]; const PRODUITSPHARE = [
+    ];
+    const PRODUITSPHARE = [
         {
             id: 1,
             photo:
                 "https://image.noelshack.com/fichiers/2024/10/3/1709750746-16075381-signe-d-or-best-seller-avec-laurel-illustrationle-vectoriel.jpg",
             fallbackPhoto: "https://picsum.photos/200/300",
-        },  {
+        }, {
             id: 2,
             photo:
                 "https://image.noelshack.com/fichiers/2024/10/3/1709751618-brown-and-beige-vintage-chocolate-day-facebook-post.png",
             fallbackPhoto: "https://picsum.photos/200/300",
         },
     ];
+    const SALARIES = [
+        {
+            id: 1,
+            photo:
+                "https://image.noelshack.com/fichiers/2024/10/3/1709756107-15-03-content-squad-embauche-d-un-salarie-etranger-europeen-1.jpg",
+            nom:"Amanda Weller"
+        },
+        {
+            id: 2,
+            photo:
+                "https://image.noelshack.com/fichiers/2024/10/3/1709756107-23c562ab545412997ccea33ec1d7a15d.jpg",
+            nom:"Harvey Specter"
+        },
+        {
+            id: 3,
+            photo:
+                "https://image.noelshack.com/fichiers/2024/10/3/1709756107-2b5a673aa770b9366d8c1bc1305aa81c.jpg",
+            nom:"Bruce  Wayne"
+        },
+    ];
 
     const handleProductPress = () => {
         navigation.navigate("Nos produits");
     };
+    const windowWidth = Dimensions.get("window").width;
+    const renderImageItem = ({item}) => (
+        <View style={{borderRadius: 10, overflow: "hidden", marginHorizontal: 5}}>
+            <Image
+                source={item.photo}
+                style={{width: windowWidth / 3, height: windowWidth / 3}}
+            />
+        </View>
+    );
     console.log("acceuil console log:" + isLoggedIn);
     return (
         <View>
@@ -118,41 +148,61 @@ export default function Home({navigation, route}) {
             {/*Zone des flatlist*/}
             <ScrollView>
                 <View style={styles.textEspace3}></View>
-            <FlatList
-                horizontal
-                data={DATA.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
-                renderItem={({item}) => (
-                    <View style={{width: Dimensions.get('window').width}}>
-                        <Image source={{uri: item.photo || item.fallbackPhoto}} style={{width: '100%', height: 200}}/>
-                    </View>
-                )}
-                keyExtractor={(item) => item.id.toString()}
-            />
-            <View style={stylesAccueil.card}>
-                <Text style={stylesAccueil.title}>Nos produits phare</Text>
                 <FlatList
                     horizontal
-                    data={PRODUITSPHARE.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
+                    data={DATA.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
                     renderItem={({item}) => (
                         <View style={{width: Dimensions.get('window').width}}>
-                            <Image source={{uri: item.photo || item.fallbackPhoto}} style={{width: '100%', height: 200}}/>
+                            <Image source={{uri: item.photo || item.fallbackPhoto}}
+                                   style={{width: '100%', height: 200}}/>
                         </View>
                     )}
                     keyExtractor={(item) => item.id.toString()}
                 />
-            </View>
+                <View style={stylesAccueil.card}>
+                    <Text style={stylesAccueil.title}>Nos produits phare</Text>
+                    <FlatList
+                        horizontal
+                        data={PRODUITSPHARE.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
+                        renderItem={({item}) => (
+                            <View style={{width: Dimensions.get('window').width}}>
+                                <Image source={{uri: item.photo || item.fallbackPhoto}}
+                                       style={{width: '100%', height: 200}}/>
+                            </View>
+                        )}
+                        keyExtractor={(item) => item.id.toString()}
+                    />
+                </View>
 
 
-            <View style={stylesAccueil.card}>
-                <Text style={styles.title}>{nous.titre}</Text>
-                <Text style={styles.description}>{nous.notreHistoire}</Text>
-            </View>
+                <View style={stylesAccueil.card}>
+                    <Text style={styles.title}>{nous.titre}</Text>
+                    <Text style={styles.description}>{nous.notreHistoire}</Text>
+                </View>
 
 
-            <View style={stylesAccueil.card}>
-                <Text style={styles.title}>{nous.titre}</Text>
-                <Text style={styles.description}>{nous.notreHistoire}</Text>
-            </View>
+                <View style={stylesAccueil.card}>
+                    <View style={styles.textEspace3}></View>
+                    <Text style={stylesAccueil.title}>{nous.titre}</Text>
+                    <View style={styles.textEspace}></View>
+                    <Text style={stylesAccueil.presentationGourmandise}>{nous.notreHistoire}</Text>
+
+                    <View style={styles.textEspace3}></View>
+
+                    <Text style={stylesAccueil.title}>Notre équipe</Text>
+                    <View style={stylesAccueil.employeeContainer}>
+                        {SALARIES.slice(0, 3).map((employee) => (
+                            <View key={employee.id} style={stylesAccueil.employeeCard}>
+                                <Image
+                                    source={{ uri: employee.photo }}
+                                    style={stylesAccueil.employeePhoto}
+                                />
+                                <Text style={stylesAccueil.employeeName}>{employee.nom}</Text>
+                            </View>
+                        ))}
+                    </View>
+                    <View style={{ height: 50 }} />
+                </View>
             </ScrollView>
 
         </View>
