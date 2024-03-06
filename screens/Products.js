@@ -54,7 +54,7 @@ export default function Products({ navigation }) {
     const fetchProductDetails = async (productId) => {
         try {
             const response = await fetch(
-                `http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/productDetails?id=${productId}`
+                `https://gourmandise-api.bdessis.v70208.campus-centre.fr/products`
             );
 
             if (!response.ok) {

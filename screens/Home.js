@@ -9,7 +9,7 @@ import {
     FlatList,
     Dimensions,
 } from "react-native";
-import {styles, stylesFiche} from "../styles/AppStyles";
+import {styles, stylesAccueil, stylesFiche, stylesList} from "../styles/AppStyles";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import Swiper from "react-native-swiper";
 import {SwiperFlatList} from "react-native-swiper-flatlist";
@@ -76,8 +76,18 @@ export default function Home({navigation, route}) {
             photo:
                 "https://ibb.co/0ms9kWc",
         },
-
-
+    ]; const PRODUITSPHARE = [
+        {
+            id: 1,
+            photo:
+                "https://image.noelshack.com/fichiers/2024/10/3/1709750746-16075381-signe-d-or-best-seller-avec-laurel-illustrationle-vectoriel.jpg",
+            fallbackPhoto: "https://picsum.photos/200/300",
+        },  {
+            id: 2,
+            photo:
+                "https://image.noelshack.com/fichiers/2024/10/3/1709751618-brown-and-beige-vintage-chocolate-day-facebook-post.png",
+            fallbackPhoto: "https://picsum.photos/200/300",
+        },
     ];
 
     const handleProductPress = () => {
@@ -106,6 +116,8 @@ export default function Home({navigation, route}) {
             </View>
 
             {/*Zone des flatlist*/}
+            <ScrollView>
+                <View style={styles.textEspace3}></View>
             <FlatList
                 horizontal
                 data={DATA.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
@@ -116,10 +128,34 @@ export default function Home({navigation, route}) {
                 )}
                 keyExtractor={(item) => item.id.toString()}
             />
-            <View style={stylesFiche.cardAcceuil}>
-                <Text>{nous.titre}</Text>
-                <Text>{nous.notreHistoire}</Text>
+            <View style={stylesAccueil.card}>
+                <Text style={stylesAccueil.title}>Nos produits phare</Text>
+                <FlatList
+                    horizontal
+                    data={PRODUITSPHARE.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
+                    renderItem={({item}) => (
+                        <View style={{width: Dimensions.get('window').width}}>
+                            <Image source={{uri: item.photo || item.fallbackPhoto}} style={{width: '100%', height: 200}}/>
+                        </View>
+                    )}
+                    keyExtractor={(item) => item.id.toString()}
+                />
             </View>
+
+
+            <View style={stylesAccueil.card}>
+                <Text style={styles.title}>{nous.titre}</Text>
+                <Text style={styles.description}>{nous.notreHistoire}</Text>
+            </View>
+
+
+            <View style={stylesAccueil.card}>
+                <Text style={styles.title}>{nous.titre}</Text>
+                <Text style={styles.description}>{nous.notreHistoire}</Text>
+            </View>
+            </ScrollView>
+
         </View>
+
     );
 }
