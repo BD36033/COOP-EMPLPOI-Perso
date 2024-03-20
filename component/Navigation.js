@@ -15,6 +15,7 @@ import CommandeList from "../screens/CommandeList";
 import {AuthContext} from "./AuthContext";
 import * as SecureStore from "expo-secure-store";
 import ProfilUtilisateur from "../screens/ProfilUtilisateur";
+import Command from "../screens/Command";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -75,6 +76,8 @@ export default function Navigation() {
                             iconName = "box";
                         } else if (route.name === "Profil utilisateur") {
                             iconName = "user";
+                        } else if (route.name === "Commande"){
+                            iconName = "";
                         }
 
                         return <Entypo name={iconName} size={size} color={color}/>;
@@ -87,15 +90,16 @@ export default function Navigation() {
                 })}
             >
                 {/* Barre de navigation du bas de l'écran */}
-                <Tab.Screen name="Accueil" component={Home}/>
+                <Tab.Screen name="Accueil" component={Home} options={{ headerShown: false }}/>
                 {/*<Tab.Screen name="Liste des commandes" component={CommandeList} />*/}
                 {isLoggedIn ? (
-                    <Tab.Screen name="Profil utilisateur" component={ProfilUtilisateur}/>
+                    <Tab.Screen options={{headerShown: false}} name="Profil utilisateur" component={ProfilUtilisateur}/>
                     ) : (
-                    <Tab.Screen name="Se connecter" component={Log}/>
+                    <Tab.Screen name="Se connecter" component={Log} options={{ headerShown: false }} />
                     )}
-                <Tab.Screen name="Inscription" component={Register}/>
-                <Tab.Screen name="Nos produits" component={FicheProduitNavigator}/>
+                {/*<Tab.Screen name="Inscription" component={Register}/>*/}
+                <Tab.Screen name="Commande" component={Command}/>
+                <Tab.Screen name="Nos produits" component={FicheProduitNavigator} options={{ headerShown: false }} />
             </Tab.Navigator>
         </NavigationContainer>
     );

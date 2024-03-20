@@ -75,6 +75,7 @@ export const stylesAccueil = StyleSheet.create({
         textAlign: 'center', // Pour centrer le texte sous l'image
     },
 });
+
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -129,20 +130,17 @@ export const styles = StyleSheet.create({
     textEspace3: {
         height: 25,
     },
-
     sousTitre: {
         fontStyle: "italic",
         fontSize: 20,
         textAlign: "center",
         marginTop: 20,
     },
-
     aProposTitre: {
         fontStyle: "italic",
         fontSize: 20,
         textAlign: "center",
     },
-
     texte: {
         fontStyle: "italic",
         fontSize: 17,
@@ -169,13 +167,6 @@ export const styles = StyleSheet.create({
         flex: 1,
         marginRight: 10,
         padding: 8,
-    },
-    btn_search: {
-        backgroundColor: "sienna", // couleur de fond du bouton
-        padding: 10, // ajout de rembourrage pour un meilleur aspect
-        borderRadius: 5, // coins arrondis
-        alignItems: "center", // alignement du contenu au centre
-        justifyContent: "center", // alignement du contenu au centre
     },
     btn_search_active: {
         backgroundColor: "sienna", // couleur de fond du bouton
@@ -486,4 +477,76 @@ export const stylesFiche = StyleSheet.create({
         marginHorizontal: 2,
     },
 
+});
+export const stylesMenu = StyleSheet.create({
+    container: {
+        marginTop: 20,
+        marginBottom: 30,
+    },
+    menuItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        backgroundColor: "#f0f0f0",
+        borderRadius: 8,
+        elevation: 3,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+    },
+    menuIcon: {
+        marginRight: 8,
+    },
+    menuText: {
+        fontSize: 16,
+        color: "#333",
+    },
+});
+
+export const stylesUtilisateur = StyleSheet.create({
+    containerPrincipal: {
+        paddingHorizontal: 16,
+        paddingBottom: 20,
+        backgroundColor: "#f0f0f0",
+    },
+    containerUtilisateur: {
+        paddingHorizontal: 16,
+        paddingBottom: 20,
+        borderColor: 'sienna', // Couleur de la bordure
+        borderWidth: 1, // Épaisseur de la bordure
+        borderRadius: 8,
+        elevation: 3,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        backgroundColor: 'transparent', // Fond transparent
+    },
+    titreUtilisateur: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 20,
+        color: "#333",
+    },
+    infoUtilisateur: {
+        marginBottom: 16,
+    },
+    labelUtilisateur: {
+        fontWeight: "bold",
+        marginBottom: 8,
+        color: "#666",
+    },
+    texteUtilisateur: {
+        fontSize: 16,
+        color: "#888",
+    },
 });

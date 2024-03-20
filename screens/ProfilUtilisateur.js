@@ -1,115 +1,49 @@
-import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "react-native-elements";
-import { FlatList, Pressable, Text, View, Image, RefreshControl } from "react-native";
-import { styles, stylesList } from "../styles/AppStyles";
+import React from "react";
+import {View, Text, TouchableOpacity, SafeAreaView} from "react-native";
+import { FontAwesome } from "@expo/vector-icons";
+import { styles, stylesMenu, stylesUtilisateur } from "../styles/AppStyles";
 
 export default function ProfilUtilisateur({ navigation }) {
-    const [sortBy, setSortBy] = useState("name");
-    const [filterBy, setFilterBy] = useState("");
-    const [data, setData] = useState([]);
-    const [sortPressed, setSortPressed] = useState(false);
-    const [refreshing, setRefreshing] = useState(false);
-
-    useEffect(() => {
-        fetchData();
-    }, []); // Chargement initial
-
-    useEffect(() => {
-        if (sortPressed && sortBy === "name") {
-            const sortedData = [...data].sort((a, b) => {
-                return a.designation.localeCompare(b.designation);
-            });
-
-            setData(sortedData);
-            setSortPressed(false);
-        }
-    }, [sortPressed, sortBy, data]);
-
-    const fetchData = () => {
-        setRefreshing(true);
-
-        fetch(
-            "https://gourmandise-api.bdessis.v70208.campus-centre.fr/products",
-        )
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`Erreur HTTP! Statut : ${response.status}`);
-                }
-                return response.json();
-            })
-            .then((newData) => {
-                setData(newData);
-            })
-            .catch((error) => {
-                console.error(
-                    "Erreur lors de la récupération des données :",
-                    error.message,
-                );
-            })
-            .finally(() => {
-                setRefreshing(false);
-            });
+    const utilisateur = {
+        nom: "John Doe",
+        adresse: "123 Rue des Fleurs",
+        numeroTelephone: "0123456789",
     };
 
-    const fetchProductDetails = async (productId) => {
-        try {
-            const response = await fetch(
-                `http://94.247.183.122/plesk-site-preview/gourmandise-api.sdupont.v70208.campus-centre.fr/https/94.247.183.122/api/productDetails?id=${productId}`
-            );
-
-            if (!response.ok) {
-                throw new Error(`Erreur HTTP! Statut : ${response.status}`);
-            }
-
-            const productDetails = await response.json();
-            return productDetails;
-        } catch (error) {
-            console.error("Erreur lors de la récupération des détails du produit :", error.message);
-        }
+    const MenuUtilisateur = () => {
+        return (
+            <View style={stylesMenu.container}>
+                <TouchableOpacity style={[stylesMenu.menuItem, { justifyContent: "flex-end" }]} onPress={() => console.log("Déconnexion")}>
+                    <FontAwesome name="sign-out" size={24} color="sienna" style={stylesMenu.menuIcon} />
+                    <Text style={stylesMenu.menuText}>Déconnexion</Text>
+                </TouchableOpacity>
+            </View>
+        );
     };
-
-    const handleProductPress = (item) => {
-        navigation.navigate("Fiche produit", {
-            productDetails: {
-                designation: item.designation,
-                descriptif: item.descriptif,
-                poids_piece: item.poids_piece,
-                quantite: item.quantite,
-                photo:
-                    item.image ||
-                    "https://picsum.photos/200/300", // Image de test
-            },
-        });
-    };
-
-    const handleSortBy = (value) => {
-        setSortBy(value);
-        if (value === "name") {
-            setSortPressed(true);
-        }
-    };
-
-    const handleFilterBy = (value) => {
-        setFilterBy(value);
-    };
-
-    const onRefresh = () => {
-        fetchData();
-    };
-
-    const buttons = ["Nom", "Catégorie"];
-
-    const buttonStyles = {
-        containerStyle: { height: 40 },
-        buttonStyle: { backgroundColor: "sienna" },
-        textStyle: { color: "white" },
-    };
-
-
 
     return (
-        <View style={styles.containerProduits}>
-
+        <SafeAreaView>
+        <View style={stylesUtilisateur.containerPrincipal}>
+            <View style={styles.menu}>
+                <MenuUtilisateur />
+            </View>
+            <View style={stylesUtilisateur.containerUtilisateur}>
+                <Text style={stylesUtilisateur.titreUtilisateur}>Profil Utilisateur</Text>
+                <View style={stylesUtilisateur.infoUtilisateur}>
+                    <Text style={stylesUtilisateur.labelUtilisateur}>Nom:</Text>
+                    <Text style={stylesUtilisateur.texteUtilisateur}>{utilisateur.nom}</Text>
+                </View>
+                <View style={stylesUtilisateur.infoUtilisateur}>
+                    <Text style={stylesUtilisateur.labelUtilisateur}>Adresse:</Text>
+                    <Text style={stylesUtilisateur.texteUtilisateur}>{utilisateur.adresse}</Text>
+                </View>
+                <View style={stylesUtilisateur.infoUtilisateur}>
+                    <Text style={stylesUtilisateur.labelUtilisateur}>Numéro de téléphone:</Text>
+                    <Text style={stylesUtilisateur.texteUtilisateur}>{utilisateur.numeroTelephone}</Text>
+                </View>
+            </View>
         </View>
+        </SafeAreaView>
     );
 }
+

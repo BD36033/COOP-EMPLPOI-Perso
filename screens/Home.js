@@ -7,7 +7,7 @@ import {
     ScrollView,
     TouchableOpacity,
     FlatList,
-    Dimensions,
+    Dimensions, SafeAreaView,
 } from "react-native";
 import {styles, stylesAccueil, stylesFiche, stylesList} from "../styles/AppStyles";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
@@ -31,7 +31,7 @@ export default function Home({navigation, route}) {
         console.log("Recherche effectuée avec la requête :", searchQuery);
         // Filtrer les produits en fonction de la désignation
         const filtered = DATA.filter((product) =>
-            product.designation.toLowerCase().includes(searchQuery.toLowerCase())
+            product.designation && product.designation.toLowerCase().includes(searchQuery.toLowerCase())
         );
         setFilteredProducts(filtered);
     };
@@ -125,6 +125,7 @@ export default function Home({navigation, route}) {
     );
     console.log("acceuil console log:" + isLoggedIn);
     return (
+        <SafeAreaView style={{ flex: 1 }}>
         <View>
             {/* Barre de recherche avec image Gourmandise */}
             <View style={styles.topBar}>
@@ -206,6 +207,7 @@ export default function Home({navigation, route}) {
             </ScrollView>
 
         </View>
+        </SafeAreaView>
 
     );
 }
