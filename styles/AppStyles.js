@@ -478,6 +478,7 @@ export const stylesFiche = StyleSheet.create({
     },
 
 });
+
 export const stylesMenu = StyleSheet.create({
     container: {
         marginTop: 20,
@@ -488,24 +489,32 @@ export const stylesMenu = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         paddingHorizontal: 16,
-        paddingVertical: 12,
+        paddingVertical: 12, // Ajustez la hauteur de la zone de menu
         backgroundColor: "#f0f0f0",
         borderRadius: 8,
         elevation: 3,
-        shadowColor: "#000",
+        height: 100, // Nouvelle hauteur de la zone de menu
+        shadowColor: 'sienna',
         shadowOffset: {
             width: 0,
             height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+        borderColor: 'sienna', // Ajout du rebord de couleur sienna
+        borderWidth: 1, // Épaisseur du rebord
     },
     menuIcon: {
         marginRight: 8,
     },
     menuText: {
         fontSize: 16,
-        color: "#333",
+        color: 'sienna',
+    },
+    logo: {
+        width: 100, // Ajustez la largeur de l'image
+        height: 50, // Ajustez la hauteur de l'image
+        marginRight: 120, // Vous pouvez ajuster ou supprimer cette marge si nécessaire
     },
 });
 
@@ -538,15 +547,23 @@ export const stylesUtilisateur = StyleSheet.create({
         color: "#333",
     },
     infoUtilisateur: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 16,
     },
     labelUtilisateur: {
         fontWeight: "bold",
         marginBottom: 8,
         color: "#666",
+        marginRight: 8,
     },
     texteUtilisateur: {
         fontSize: 16,
         color: "#888",
+    },
+    favicon: {
+        width: 24,
+        height: 24,
+        marginRight: 8,
     },
 });
