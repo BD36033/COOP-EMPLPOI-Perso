@@ -77,7 +77,7 @@ export default function Navigation() {
                         } else if (route.name === "Profil utilisateur") {
                             iconName = "user";
                         } else if (route.name === "Commande"){
-                            iconName = "";
+                            iconName = "shopping-cart";
                         }
 
                         return <Entypo name={iconName} size={size} color={color}/>;
@@ -98,7 +98,7 @@ export default function Navigation() {
                     <Tab.Screen name="Se connecter" component={Log} options={{ headerShown: false }} />
                     )}
                 {/*<Tab.Screen name="Inscription" component={Register}/>*/}
-                <Tab.Screen name="Commande" component={Command}/>
+                <Tab.Screen name="Commande" component={Command} />
                 <Tab.Screen name="Nos produits" component={FicheProduitNavigator} options={{ headerShown: false }} />
             </Tab.Navigator>
         </NavigationContainer>

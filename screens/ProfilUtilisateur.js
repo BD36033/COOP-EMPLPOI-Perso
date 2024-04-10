@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext  } from "react";
-import {View, Text, TouchableOpacity, SafeAreaView, Image} from "react-native";
+import {View, Text, TouchableOpacity, SafeAreaView, Image, TextInput} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { styles, stylesMenu, stylesUtilisateur } from "../styles/AppStyles";
 import * as SecureStore from "expo-secure-store";
@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default function ProfilUtilisateur({ navigation }) {
     const [utilisateur, setUtilisateur] = useState(null);
     const { signOut } = useContext(AuthContext);
+    // const [nom, setNom] = useState(utilisateur.nom);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -82,6 +83,13 @@ export default function ProfilUtilisateur({ navigation }) {
                                 <Icon name="user" size={24} color="sienna" style={stylesUtilisateur.favicon} />
                                 <Text style={stylesUtilisateur.labelUtilisateur}>Nom:</Text>
                                 <Text style={stylesUtilisateur.texteUtilisateur}>{utilisateur.nom}</Text>
+
+                                {/*<TextInput*/}
+                                {/*    style={stylesUtilisateur.input}*/}
+                                {/*    value={nom}*/}
+                                {/*    onChangeText={setNom}*/}
+                                {/*    placeholder="Entrez votre nom"*/}
+                                {/*/>*/}
                             </View>
                             <View style={stylesUtilisateur.infoUtilisateur}>
                                 <Icon name="home" size={24} color="sienna" style={stylesUtilisateur.favicon} />
@@ -106,6 +114,11 @@ export default function ProfilUtilisateur({ navigation }) {
                         </>
                     )}
                 </View>
+            </View>
+            <View style={stylesUtilisateur.boutonUtilisateur}>
+                <TouchableOpacity style={stylesUtilisateur.updateUtilisateur} >
+                    <Text style={styles.buttonText}>Modifier</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

@@ -1,9 +1,8 @@
-import {StyleSheet, Text, View} from "react-native";
+import {View} from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import {useCallback, useEffect, useState} from "react";
 import * as Font from "expo-font";
 import {
-    useFonts,
     Inter_400Regular,
     Inter_600SemiBold,
 } from "@expo-google-fonts/inter";

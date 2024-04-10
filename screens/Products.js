@@ -75,12 +75,15 @@ export default function Products({ navigation }) {
                 descriptif: item.descriptif,
                 poids_piece: item.poids_piece,
                 quantite: item.quantite,
+                prix_unitaire_HT: item.prix_unitaire_HT,
                 photo:
                     item.image ||
                     "https://picsum.photos/200/300", // Image de test
             },
+
         });
     };
+
     const handleGoToHome = () => {
         navigation.navigate("Accueil", {
             productDetails: productDetails // Passer les données du produit à l'acceuil
@@ -102,7 +105,7 @@ export default function Products({ navigation }) {
         fetchData();
     };
 
-    const buttons = ["Nom", "Catégorie"];
+    const buttons = ["Nom"];
 
     const buttonStyles = {
         containerStyle: { height: 40 },
@@ -114,6 +117,7 @@ export default function Products({ navigation }) {
         <Pressable onPress={() => handleProductPress(item)}>
             <View style={stylesList.item}>
                 <Text style={stylesList.title}>{item.designation}</Text>
+                {/*<Text style={stylesList.title}>{item.prix_unitaire_HT}</Text>*/}
                 <Image
                     style={stylesList.imageProduits}
                     source={{

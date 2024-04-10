@@ -176,7 +176,7 @@ export const styles = StyleSheet.create({
         justifyContent: "center", // alignement du contenu au centre
     },
     btn_search_text: {
-        color: "white",
+        color: "sienna",
         fontSize: 16,
     },
     logo: {
@@ -550,6 +550,18 @@ export const stylesUtilisateur = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 16,
+    },
+    boutonUtilisateur: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    updateUtilisateur:{
+        backgroundColor: "sienna",
+        padding: 10,
+        borderRadius: 5,
+        alignSelf: "center",
     },
     labelUtilisateur: {
         fontWeight: "bold",

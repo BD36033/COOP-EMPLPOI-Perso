@@ -11,9 +11,6 @@ import {
 } from "react-native";
 import {styles, stylesAccueil, stylesFiche, stylesList} from "../styles/AppStyles";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import Swiper from "react-native-swiper";
-import {SwiperFlatList} from "react-native-swiper-flatlist";
-import {Icon} from "@ui-kitten/components";
 import resource from "../resources/resource.json";
 import {Entypo} from "@expo/vector-icons";
 import {AuthContext} from "../component/AuthContext";
@@ -36,6 +33,9 @@ export default function Home({navigation, route}) {
         setFilteredProducts(filtered);
     };
 
+    const handleCommandePress = () => {
+        navigation.navigate("Commande");
+    };
     const nous = resource.nous[0];
     const DATA = [
         {
@@ -134,15 +134,11 @@ export default function Home({navigation, route}) {
                     source={require("../assets/gourmanidse-removebg-preview.png")}
                 />
                 <View style={styles.positionRechercheTopBar}>
-                    <TextInput
-                        style={styles.formulaireRecherche}
-                        placeholder="Recherche"
-                        onChangeText={(text) => setSearchQuery(text)}
-                        value={searchQuery}
-                    />
-                    <TouchableOpacity style={styles.btn_search} onPress={handleSearch}>
-                        <Entypo name="magnifying-glass" size={24} color="white"/>
+                    <TouchableOpacity style={styles.btn_search} onPress={handleCommandePress}>
+                        {/* Remplacez l'icône de la loupe par l'icône du panier */}
+                        <Entypo name="shopping-cart" size={24} color="sienna" />
                     </TouchableOpacity>
+
                 </View>
             </View>
 
@@ -161,7 +157,7 @@ export default function Home({navigation, route}) {
                     keyExtractor={(item) => item.id.toString()}
                 />
                 <View style={stylesAccueil.card}>
-                    <Text style={stylesAccueil.title}>Nos produits phare</Text>
+                    <Text style={stylesAccueil.title}>Message de l'équipe Gourmandise</Text>
                     <FlatList
                         horizontal
                         data={PRODUITSPHARE.slice(0, 2)} // Sélectionnez les deux premières images pour le slider
@@ -176,10 +172,10 @@ export default function Home({navigation, route}) {
                 </View>
 
 
-                <View style={stylesAccueil.card}>
-                    <Text style={styles.title}>{nous.titre}</Text>
-                    <Text style={styles.description}>{nous.notreHistoire}</Text>
-                </View>
+                {/*<View style={stylesAccueil.card}>*/}
+                {/*    <Text style={styles.title}>Titre ...</Text>*/}
+                {/*    <Text style={styles.description}>contenu...</Text>*/}
+                {/*</View>*/}
 
 
                 <View style={stylesAccueil.card}>
