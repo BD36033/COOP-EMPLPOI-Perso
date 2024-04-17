@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Button, ButtonGroup } from "react-native-elements";
-import { FlatList, Pressable, Text, View, Image, RefreshControl } from "react-native";
-import { styles, stylesList } from "../styles/AppStyles";
+import React, {useEffect, useState} from "react";
+import {Button, ButtonGroup} from "react-native-elements";
+import {FlatList, Pressable, Text, View, Image, RefreshControl} from "react-native";
+import {styles, stylesList} from "../styles/AppStyles";
 import Home from "../screens/Home";
-export default function Products({ navigation }) {
+
+export default function Products({navigation}) {
     const [sortBy, setSortBy] = useState("name");
     const [filterBy, setFilterBy] = useState("");
     const [data, setData] = useState([]);
@@ -76,6 +77,7 @@ export default function Products({ navigation }) {
                 poids_piece: item.poids_piece,
                 quantite: item.quantite,
                 prix_unitaire_HT: item.prix_unitaire_HT,
+                reference: item.reference,
                 photo:
                     item.image ||
                     "https://picsum.photos/200/300", // Image de test
@@ -108,12 +110,12 @@ export default function Products({ navigation }) {
     const buttons = ["Nom"];
 
     const buttonStyles = {
-        containerStyle: { height: 40 },
-        buttonStyle: { backgroundColor: "sienna" },
-        textStyle: { color: "white" },
+        containerStyle: {height: 40},
+        buttonStyle: {backgroundColor: "sienna"},
+        textStyle: {color: "white"},
     };
 
-    const renderProducts = ({ item }) => (
+    const renderProducts = ({item}) => (
         <Pressable onPress={() => handleProductPress(item)}>
             <View style={stylesList.item}>
                 <Text style={stylesList.title}>{item.designation}</Text>
@@ -145,7 +147,7 @@ export default function Products({ navigation }) {
                 keyExtractor={(item, index) => index.toString()}
                 numColumns={2}
                 refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>
                 }
             />
         </View>

@@ -25,7 +25,7 @@ export default function App() {
             // ordre de base
             // const storedToken = await SecureStore.getItemAsync("token");
             // delete le token au demarrage de lappli le temps de setup la deco
-            await SecureStore.deleteItemAsync("token");
+       //     await SecureStore.deleteItemAsync("token");//aa ennlever
             // le token est conserve au demarrage
             const storedToken = await SecureStore.getItemAsync("token");
             // console.log("app.js storage token:"+storedToken);

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image, TouchableOpacity, Modal, TextInput, Alert } from "react-native";
-import { styles, stylesFiche, stylesList } from "../styles/AppStyles";
-import { SwiperFlatList } from "react-native-swiper-flatlist";
+import React, {useEffect, useState} from "react";
+import {View, Text, Image, TouchableOpacity, Modal, TextInput, Alert, Pressable} from "react-native";
+import {styles, stylesFiche, stylesList} from "../styles/AppStyles";
+import {SwiperFlatList} from "react-native-swiper-flatlist";
 import * as SecureStore from "expo-secure-store";
 
-export default function FormProducts({ route }) {
+export default function FormProducts({route}) {
     const productDetails = route.params?.productDetails;
     const [isModalVisible, setModalVisible] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -24,19 +24,19 @@ export default function FormProducts({ route }) {
         fetchUserProfile();
     }, []);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         // Appel de la fonction pour ajouter au panier
-        addToCart();
+        await addToCart();
     };
 
-    const addToCart = () => {
+    const addToCart = async () => {
         if (!token) {
             // Gérer le cas où le token n'est pas disponible
             console.error("Token non disponible");
             return;
         }
 
-        // Vérifier si productDetails existe et contient la propriété prix_unitaire_HT
+
         // if (!productDetails || !productDetails.prix_unitaire_HT) {
         //     console.error("Détails du produit non disponibles ou prix_unitaire_HT manquant");
         //     return;
@@ -51,22 +51,32 @@ export default function FormProducts({ route }) {
             quantite: quantity
         };
         // Exécution de la requête
-        fetch("/addPanier", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                toggleModal();
+        try {
+
+
+            const response = await fetch("https://gourmandise-api.bdessis.v70208.campus-centre.fr/addPanier", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
             })
-            .catch(error => {
-                console.error("Erreur lors de l'ajout au panier :", error);
-                Alert.alert("Erreur", "Une erreur est survenue lors de l'ajout au panier.");
-            });
+            if (response.ok) {
+              alert('Ajout effectué')
+            } else {
+                if (response.status === 401) {
+                    // Gérer les cas d'erreur
+                    alert('Client non Trouvé')
+                }
+                // Si le serveur renvoie une erreur 500, afficher la modal d'erreur
+                if (response.status === 500) {
+                    alert('erreur serveur')
+                }
+            }
+        } catch (error) {
+            console.error("Erreur lors de l'ajout au panier :", error);
+            alert("Une erreur est survenue lors de l'ajout au panier.");
+        }
     };
 
     const handlePromotion = () => {
@@ -104,41 +114,16 @@ export default function FormProducts({ route }) {
                         value={quantity.toString()}
                         keyboardType="numeric"
                     />
-                    <TouchableOpacity style={styles.btn_search} onPress={handleAddToCart}>
-                        <Text style={styles.btn_search_text}>Ajouter au panier</Text>
-                    </TouchableOpacity>
+                    {token ? (
+                        <TouchableOpacity style={styles.btn_search} onPress={handleAddToCart}>
+                            <Text style={styles.btn_search_text}>Ajouter au panier</Text>
+                        </TouchableOpacity>) : (
+                        <Pressable>
+                            <Text style={styles.btn_search_text}>Se connecter</Text>
+                        </Pressable>
+                    )}
                 </View>
             </View>
-            {/* partie du bas de la fiche produits*/}
-            {/*<View style={stylesFiche.cardBas}>*/}
-            {/*    <Text style={stylesFiche.title}>Produits en promotion</Text>*/}
-            {/*    <Text style={stylesFiche.text}>Pour une durée limitée !</Text>*/}
-            {/*    <SwiperFlatList>*/}
-            {/*        <View style={styles.photoSlide}>*/}
-            {/*            <Image*/}
-            {/*                source={require("../assets/dispo.jpg")}*/}
-            {/*                style={styles.photoSlideImage}*/}
-            {/*            />*/}
-            {/*        </View>*/}
-            {/*    </SwiperFlatList>*/}
-            {/*    <TouchableOpacity style={styles.btn_search} onPress={handlePromotion}>*/}
-            {/*        <Text style={styles.btn_search_text}>Promotion</Text>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalVisible}
-                onRequestClose={toggleModal}
-            >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text style={styles.texteModal}>Produit ajouté au panier !</Text>
-                        <TouchableOpacity onPress={toggleModal}>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </Modal>
         </View>
     );
 }

@@ -1,9 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import {NavigationContainer} from "@react-navigation/native";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import Navbar from "./Navbar";
 import Login from "../screens/Login";
-import Register from "../screens/Register";
 import Home from "../screens/Home";
 import PasswordForget from "../screens/PasswordForget";
 import Products from "../screens/Products";
@@ -11,11 +9,11 @@ import {createStackNavigator} from "@react-navigation/stack";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {AntDesign, Entypo} from "@expo/vector-icons";
 import FormProducts from "../screens/FormProducts";
-import CommandeList from "../screens/CommandeList";
 import {AuthContext} from "./AuthContext";
 import * as SecureStore from "expo-secure-store";
 import ProfilUtilisateur from "../screens/ProfilUtilisateur";
 import Command from "../screens/Command";
+import Register from "../screens/Register";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -26,6 +24,7 @@ function Log() {
     return (
         <Stack.Navigator initialRouteName={Login}>
             <Stack.Screen name="Connexion" component={Login}/>
+            <Stack.Screen name="Inscription" component={Register}/>
             <Stack.Screen name="PasswordForget" component={PasswordForget}/>
         </Stack.Navigator>
     );
@@ -51,11 +50,13 @@ export default function Navigation() {
         }
         console.log("token:" + storedToken, isLoggedIn)
     };
-        useEffect(() => {
-            async function prepare() {
-                await retrouverToken()
-            }prepare()
-        }, []);
+    useEffect(() => {
+        async function prepare() {
+            await retrouverToken()
+        }
+
+        prepare()
+    }, []);
 
 
     return (
@@ -76,7 +77,7 @@ export default function Navigation() {
                             iconName = "box";
                         } else if (route.name === "Profil utilisateur") {
                             iconName = "user";
-                        } else if (route.name === "Commande"){
+                        } else if (route.name === "Commande") {
                             iconName = "shopping-cart";
                         }
 
@@ -90,16 +91,15 @@ export default function Navigation() {
                 })}
             >
                 {/* Barre de navigation du bas de l'écran */}
-                <Tab.Screen name="Accueil" component={Home} options={{ headerShown: false }}/>
+                <Tab.Screen name="Accueil" component={Home} options={{headerShown: false}}/>
                 {/*<Tab.Screen name="Liste des commandes" component={CommandeList} />*/}
                 {isLoggedIn ? (
                     <Tab.Screen options={{headerShown: false}} name="Profil utilisateur" component={ProfilUtilisateur}/>
-                    ) : (
-                    <Tab.Screen name="Se connecter" component={Log} options={{ headerShown: false }} />
-                    )}
-                {/*<Tab.Screen name="Inscription" component={Register}/>*/}
-                <Tab.Screen name="Commande" component={Command} />
-                <Tab.Screen name="Nos produits" component={FicheProduitNavigator} options={{ headerShown: false }} />
+                ) : (
+                    <Tab.Screen name="Se connecter" component={Log} options={{headerShown: false}}/>
+                )}
+                <Tab.Screen name="Commande" component={Command}/>
+                <Tab.Screen name="Nos produits" component={FicheProduitNavigator} options={{headerShown: false}}/>
             </Tab.Navigator>
         </NavigationContainer>
     );
